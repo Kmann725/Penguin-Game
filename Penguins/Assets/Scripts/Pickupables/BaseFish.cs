@@ -2,7 +2,7 @@
  * Gerard Lamoureux
  * Pickup
  * Team Project 1
- * Class for Speed Fish Pickupables
+ * Class for Base Fish Pickupables
  */
 
 using System.Collections;
