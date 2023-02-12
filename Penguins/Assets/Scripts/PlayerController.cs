@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPlayerSubject
 {
     public float speed = 5f;
     public float jump = 5f;
@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private float xRot;
 
     private Rigidbody rb;
+
+    List<IPlayerObserver> observers = new List<IPlayerObserver>();
 
     // Start is called before the first frame update
     void Start()
@@ -56,5 +58,23 @@ public class PlayerController : MonoBehaviour
         {
             canJump = false;
         }
+    }
+
+    public void RegisterPlayerObserver(IPlayerObserver observer)
+    {
+        observers.Add(observer);
+        observer.UpdateData(this);
+    }
+
+    public void RemovePlayerObserver(IPlayerObserver observer)
+    {
+        if (observers.Contains(observer))
+            observers.Remove(observer);
+    }
+
+    public void NotifyPlayerObservers()
+    {
+        foreach (IPlayerObserver observer in observers)
+            observer.UpdateData(this);
     }
 }
