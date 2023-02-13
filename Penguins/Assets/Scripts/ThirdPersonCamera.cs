@@ -9,24 +9,24 @@ public class ThirdPersonCamera : MonoBehaviour
     public float rotateSpeed = 5;
     public float maxXRot = 60;
     public float minXRot = -60;
-    Vector3 offset;
+    private float rotX;
+    private float offset;
 
     void Start()
     {
-        offset = player.transform.position - transform.position;
+        offset = Vector3.Distance(player.transform.position, transform.position);
     }
 
     void LateUpdate()
     {
-        float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
-        float vertical = Input.GetAxis("Mouse Y") * rotateSpeed;
-        target.transform.Rotate(vertical, horizontal, 0);
-        player.transform.Rotate(0, horizontal, 0);
-        float yAngle = target.transform.eulerAngles.y;
-        float xAngle = target.transform.eulerAngles.x;
-        Quaternion rotation = Quaternion.Euler(xAngle, yAngle, 0);
-        transform.position = target.transform.position - (rotation * offset);
+        Vector3 newPos;
 
-        transform.LookAt(target.transform);
+        float y = Input.GetAxis("Mouse X") * rotateSpeed;
+        rotX += Input.GetAxis("Mouse Y") * rotateSpeed;
+        rotX = Mathf.Clamp(rotX, minXRot, maxXRot);
+        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + y, 0);
+        newPos = target.transform.position - (transform.forward * offset);
+        newPos.y += 0.15f;
+        transform.position = newPos;
     }
 }
