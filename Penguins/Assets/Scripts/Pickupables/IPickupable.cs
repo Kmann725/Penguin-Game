@@ -18,7 +18,9 @@ public class BasePickup : IPickupable
 {
     public void Pickup(PlayerController pc)
     {
+        pc.FishCollected++;
         //this.GameManager.GameManager.FishCount++;
+        pc.NotifyPlayerObservers();
     }
 }
 
@@ -31,7 +33,9 @@ public class SpeedPickup : IPickupable
     }
     public void Pickup(PlayerController pc)
     {
+        pc.FishCollected++;
         //pc.UpdateSpeed(amount) function in PlayerController to update the player's speed multiplier
         //this.GameManager.GameManager.FishCount++;
+        pc.NotifyPlayerObservers();
     }
 }

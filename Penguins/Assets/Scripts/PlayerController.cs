@@ -13,7 +13,16 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     private Rigidbody rb;
 
+    public int FishCollected = 0;
+
+    public static PlayerController ThisPlayerController;
+
     List<IPlayerObserver> observers = new List<IPlayerObserver>();
+
+    void Awake()
+    {
+        ThisPlayerController = this;
+    }
 
     // Start is called before the first frame update
     void Start()
