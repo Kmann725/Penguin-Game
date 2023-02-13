@@ -28,5 +28,7 @@ public class ThirdPersonCamera : MonoBehaviour
         newPos = target.transform.position - (transform.forward * offset);
         newPos.y += 0.15f;
         transform.position = newPos;
+
+        
     }
 }
