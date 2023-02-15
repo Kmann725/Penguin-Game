@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        if (x != 0 && grounded)
+        if (x != 0 && grounded && rb.)
         {
             rb.AddForce(transform.right * (x * speed * Time.deltaTime), ForceMode.Impulse);
         }
