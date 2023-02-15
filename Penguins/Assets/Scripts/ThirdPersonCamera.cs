@@ -24,11 +24,11 @@ public class ThirdPersonCamera : MonoBehaviour
         float y = Input.GetAxis("Mouse X") * rotateSpeed;
         rotX += Input.GetAxis("Mouse Y") * rotateSpeed;
         rotX = Mathf.Clamp(rotX, minXRot, maxXRot);
-        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + y, 0);
+        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y, 0);
         newPos = target.transform.position - (transform.forward * offset);
         newPos.y += 0.15f;
         transform.position = newPos;
 
-        
+        player.transform.Rotate(0, y, 0);
     }
 }
