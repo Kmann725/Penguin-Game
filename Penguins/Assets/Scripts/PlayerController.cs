@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public float jump = 5f;
     public float mouseSensitivity = 5f;
     private bool canJump = true;
+    private bool grounded = true;
     private float xRot;
 
     private Rigidbody rb;
@@ -38,9 +39,15 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 movement = transform.right * x + transform.forward * z;
+        if (x != 0 && grounded)
+        {
+            rb.AddForce(transform.right * (x * speed * Time.deltaTime), ForceMode.Impulse);
+        }
 
-        transform.position += movement * speed * Time.deltaTime;
+        if (z != 0 && grounded)
+        {
+            rb.AddForce(transform.forward * (z * speed * Time.deltaTime), ForceMode.Impulse);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
@@ -58,6 +65,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         if (collision.gameObject.CompareTag("ground"))
         {
             canJump = true;
+            grounded = true;
         }
     }
 
@@ -66,6 +74,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         if (collision.gameObject.CompareTag("ground"))
         {
             canJump = false;
+            grounded = false;
         }
     }
 
