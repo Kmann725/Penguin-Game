@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,10 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public float mouseSensitivity = 5f;
     private bool canJump = true;
     private bool grounded = true;
+    private bool isJumping = false;
     private float xRot;
+    private float xMovement;
+    private float zMovement;
 
     private Rigidbody rb;
 
@@ -19,6 +23,10 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public static PlayerController ThisPlayerController;
 
     List<IPlayerObserver> observers = new List<IPlayerObserver>();
+
+    private PlayerData playerDataForObservers = new PlayerData();
+
+    private ISlideable slideable = new NotSliding();
 
     void Awake()
     {
@@ -33,9 +41,31 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void SetSlideMode(ISlideable slideable)
+    {
+        this.slideable = slideable;
+    }
+
+    public bool IsPlayerSliding()
+    {
+        return slideable.IsPlayerSliding;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        xMovement = Input.GetAxis("Horizontal");
+        zMovement = Input.GetAxis("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
+            isJumping = true;
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(0);
+        }
+        /*
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -57,7 +87,12 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
-        }
+        }*/
+    }
+
+    void FixedUpdate()
+    {
+        (isJumping, speed) = slideable.slide(rb, grounded, speed, jump, isJumping, canJump, xMovement, zMovement);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -81,7 +116,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public void RegisterPlayerObserver(IPlayerObserver observer)
     {
         observers.Add(observer);
-        observer.UpdateData(this);
+        NotifyPlayerObservers();
     }
 
     public void RemovePlayerObserver(IPlayerObserver observer)
@@ -92,7 +127,14 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     public void NotifyPlayerObservers()
     {
+        UpdatePlayerDataForObservers();
         foreach (IPlayerObserver observer in observers)
-            observer.UpdateData(this);
+            observer.UpdateData(playerDataForObservers);
+    }
+
+    public void UpdatePlayerDataForObservers()
+    {
+        playerDataForObservers.FishCollected = FishCollected;
+        playerDataForObservers.IsPlayerSliding = IsPlayerSliding();
     }
 }

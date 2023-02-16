@@ -11,5 +11,5 @@ using UnityEngine;
 
 public interface IPlayerObserver
 {
-    void UpdateData(PlayerController pc);
+    void UpdateData(PlayerData data);
 }

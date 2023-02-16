@@ -17,8 +17,8 @@ public class FishCollectedUI : MonoBehaviour, IPlayerObserver
         PlayerController.ThisPlayerController.RegisterPlayerObserver(this);
     }
 
-    public void UpdateData(PlayerController pc)
+    public void UpdateData(PlayerData pd)
     {
-        text.text = "Fish Collected: " + pc.FishCollected;
+        text.text = "Fish Collected: " + pd.FishCollected;
     }
 }
