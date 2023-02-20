@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public float speed = 5f;
     public float jump = 5f;
     public float mouseSensitivity = 5f;
-    private bool canJump = true;
-    private bool grounded = true;
     private bool isJumping = false;
     private float xRot;
     private float xMovement;
@@ -27,6 +25,13 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     private PlayerData playerDataForObservers = new PlayerData();
 
     private ISlideable slideable = new NotSliding();
+
+    #region Grounded
+    public Transform groundCheck;
+    public float groundDistance = 0.2f;
+    public LayerMask groundMask;
+    private bool grounded = true;
+    #endregion
 
     void Awake()
     {
@@ -57,9 +62,14 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         xMovement = Input.GetAxis("Horizontal");
         zMovement = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             isJumping = true;
+            if(slideable.IsPlayerSliding)
+                SetSlideMode(new NotSliding());
+            else
+                SetSlideMode(new IsSliding());
+            NotifyPlayerObservers();
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
@@ -92,25 +102,29 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     void FixedUpdate()
     {
-        (isJumping, speed) = slideable.slide(rb, grounded, speed, jump, isJumping, canJump, xMovement, zMovement);
+        grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        Debug.Log(grounded);
+        (isJumping) = slideable.slide(rb, grounded, speed, jump, isJumping, xMovement, zMovement);
     }
 
+    /// <summary>
+    /// Grounded handled with physics instead of collisions.
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("ground"))
+        /*if (collision.gameObject.CompareTag("ground"))
         {
-            canJump = true;
             grounded = true;
-        }
+        }*/
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("ground"))
+        /*if (collision.gameObject.CompareTag("ground"))
         {
-            canJump = false;
             grounded = false;
-        }
+        }*/
     }
 
     public void RegisterPlayerObserver(IPlayerObserver observer)

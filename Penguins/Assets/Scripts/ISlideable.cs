@@ -15,36 +15,27 @@ public interface ISlideable
     /// <param name="speed"></param>
     /// <param name="jump"></param>
     /// <param name="isJumping"></param>
-    /// <param name="canJump"></param>
     /// <param name="xMovement"></param>
     /// <param name="zMovement"></param>
-    /// <returns>Tuple of items. Used to set variables again once they are returned.</returns>
-    Tuple<bool, float> slide(Rigidbody rb, bool grounded, float speed, float jump, bool isJumping, bool canJump, float xMovement, float zMovement);
+    /// <returns>Bool of IsJumping (set back to false).</returns>
+    bool slide(Rigidbody rb, bool grounded, float speed, float jump, bool isJumping, float xMovement, float zMovement);
 }
 
 class IsSliding : ISlideable
 {
     public bool IsPlayerSliding { get => true; }
-    public Tuple<bool, float> slide(Rigidbody rb, bool grounded, float speed, float jump, bool isJumping, bool canJump, float xMovement, float zMovement)
-    {
-        //Enter Sliding Movement Here
-        return Tuple.Create(isJumping, speed);
-    }
-}
-
-class NotSliding : ISlideable
-{
-    public bool IsPlayerSliding { get => false; }
-    public Tuple<bool, float> slide(Rigidbody rb, bool grounded, float speed, float jump, bool isJumping, bool canJump, float xMovement, float zMovement)
+    public bool slide(Rigidbody rb, bool grounded, float speed, float jump, bool isJumping, float xMovement, float zMovement)
     {
         if (xMovement != 0 && grounded)
         {
-            rb.AddForce(rb.transform.right * (xMovement * speed * Time.deltaTime), ForceMode.Impulse);
+            //rb.AddForce(rb.transform.right * (xMovement * speed * Time.deltaTime), ForceMode.Impulse);
+            rb.AddForce(rb.transform.right * (xMovement * speed), ForceMode.Force);
         }
 
         if (zMovement != 0 && grounded)
         {
-            rb.AddForce(rb.transform.forward * (zMovement * speed * Time.deltaTime), ForceMode.Impulse);
+            //rb.AddForce(rb.transform.forward * (zMovement * speed * Time.deltaTime), ForceMode.Impulse);
+            rb.AddForce(rb.transform.forward * (zMovement * speed), ForceMode.Force);
         }
 
         if (isJumping)
@@ -53,6 +44,30 @@ class NotSliding : ISlideable
             isJumping = false;
         }
 
-        return Tuple.Create(isJumping, speed);
+        return isJumping;
+    }
+}
+
+class NotSliding : ISlideable
+{
+    public bool IsPlayerSliding { get => false; }
+    public bool slide(Rigidbody rb, bool grounded, float speed, float jump, bool isJumping, float xMovement, float zMovement)
+    {
+        //Enter non sliding movement
+        if(grounded)
+        {
+            Vector3 movement = new Vector3(xMovement, 0f, zMovement).normalized;
+            Vector3 velocity = (rb.transform.right * xMovement + rb.transform.forward * zMovement).normalized * speed;
+            velocity.y = rb.velocity.y;
+            rb.velocity = velocity;
+        }
+
+        if(isJumping)
+        {
+            rb.AddForce(Vector3.up * jump);
+            isJumping = false;
+        }
+
+        return isJumping;
     }
 }

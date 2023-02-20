@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 383387397499379083}
   - component: {fileID: 383387397499379082}
   - component: {fileID: 383387397499379079}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,6 +35,7 @@ Transform:
   m_Children:
   - {fileID: 383387398623927618}
   - {fileID: 383387398106214106}
+  - {fileID: 4092868980120513630}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -117,7 +118,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &383387397499379079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +135,11 @@ MonoBehaviour:
   jump: 300
   mouseSensitivity: 5
   FishCollected: 0
+  groundCheck: {fileID: 4092868980120513630}
+  groundDistance: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &383387398106214111
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +152,7 @@ GameObject:
   - component: {fileID: 383387398106214109}
   - component: {fileID: 383387398106214108}
   - component: {fileID: 383387398106214107}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -245,7 +251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 383387398623927618}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: camera target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,4 +272,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 383387397499379078}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2785875988168727166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4092868980120513630}
+  m_Layer: 3
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4092868980120513630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2785875988168727166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 383387397499379078}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
