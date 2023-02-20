@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 {
     public float walkingSpeed = 5f;
     public float slidingSpeed = 10f;
+    public float maxSlidingSpeed = 20f;
     public float jump = 5f;
     public float mouseSensitivity = 5f;
     private bool isJumping = false;
@@ -63,9 +64,15 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         xMovement = Input.GetAxis("Horizontal");
         zMovement = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            isJumping = true;
+            if (slideable.IsPlayerSliding)
+                SetSlideMode(new NotSliding());
+            else
+                SetSlideMode(new IsSliding());
+            NotifyPlayerObservers();
+            if(grounded)
+                isJumping = true;
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
@@ -99,7 +106,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     void FixedUpdate()
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        (isJumping) = slideable.slide(rb, grounded, walkingSpeed, slidingSpeed, jump, isJumping, xMovement, zMovement);
+        (isJumping) = slideable.slide(rb, grounded, walkingSpeed, slidingSpeed, maxSlidingSpeed, jump, isJumping, xMovement, zMovement);
     }
 
     /// <summary>

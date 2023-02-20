@@ -132,7 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 10
-  slidingSpeed: 20
+  slidingSpeed: 15
+  maxSlidingSpeed: 25
   jump: 300
   mouseSensitivity: 5
   FishCollected: 0

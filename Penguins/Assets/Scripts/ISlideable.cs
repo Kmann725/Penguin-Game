@@ -19,13 +19,13 @@ public interface ISlideable
     /// <param name="xMovement"></param>
     /// <param name="zMovement"></param>
     /// <returns>Bool of IsJumping (set back to false).</returns>
-    bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement);
+    bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float maxSlidingSpeed, float jump, bool isJumping, float xMovement, float zMovement);
 }
 
 class IsSliding : ISlideable
 {
     public bool IsPlayerSliding { get => true; }
-    public bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement)
+    public bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float maxSlidingSpeed, float jump, bool isJumping, float xMovement, float zMovement)
     {
         if (xMovement != 0 && grounded)
         {
@@ -39,12 +39,13 @@ class IsSliding : ISlideable
             rb.AddForce(rb.transform.forward * (zMovement * slidingSpeed), ForceMode.Force);
         }
 
+        if (rb.velocity.magnitude > maxSlidingSpeed)
+            rb.velocity = rb.velocity.normalized * maxSlidingSpeed;
+
         if (isJumping)
         {
             rb.AddForce(Vector3.up * jump);
             isJumping = false;
-            PlayerController.ThisPlayerController.SetSlideMode(new NotSliding());
-            PlayerController.ThisPlayerController.NotifyPlayerObservers();
         }
 
         return isJumping;
@@ -54,7 +55,7 @@ class IsSliding : ISlideable
 class NotSliding : ISlideable
 {
     public bool IsPlayerSliding { get => false; }
-    public bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement)
+    public bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float maxSlidingSpeed, float jump, bool isJumping, float xMovement, float zMovement)
     {
         Vector3 velocity = Vector3.zero;
         //Enter non sliding movement
@@ -83,7 +84,6 @@ class NotSliding : ISlideable
         {
             rb.AddForce(Vector3.up * jump);
             isJumping = false;
-            PlayerController.ThisPlayerController.SetSlideMode(new IsSliding());
         }
 
         return isJumping;
