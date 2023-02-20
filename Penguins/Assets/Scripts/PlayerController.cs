@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IPlayerSubject
 {
-    public float speed = 5f;
+    public float walkingSpeed = 5f;
+    public float slidingSpeed = 10f;
     public float jump = 5f;
     public float mouseSensitivity = 5f;
     private bool isJumping = false;
@@ -65,11 +66,6 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             isJumping = true;
-            if(slideable.IsPlayerSliding)
-                SetSlideMode(new NotSliding());
-            else
-                SetSlideMode(new IsSliding());
-            NotifyPlayerObservers();
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
@@ -104,7 +100,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         Debug.Log(grounded);
-        (isJumping) = slideable.slide(rb, grounded, speed, jump, isJumping, xMovement, zMovement);
+        (slideable, isJumping) = slideable.slide(rb, grounded, walkingSpeed, slidingSpeed, jump, isJumping, xMovement, zMovement, slideable);
     }
 
     /// <summary>
