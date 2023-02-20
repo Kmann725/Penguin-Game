@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     public static PlayerController ThisPlayerController;
 
+    public AudioClip call;
+
+    private AudioSource src;
+
     List<IPlayerObserver> observers = new List<IPlayerObserver>();
 
     private PlayerData playerDataForObservers = new PlayerData();
@@ -38,6 +42,8 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     void Awake()
     {
         ThisPlayerController = this;
+
+        src = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -78,6 +84,12 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         {
             SceneManager.LoadScene(0);
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            src.PlayOneShot(call);
+        }
+
         /*
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
