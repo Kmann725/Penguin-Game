@@ -99,8 +99,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     void FixedUpdate()
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        Debug.Log(grounded);
-        (slideable, isJumping) = slideable.slide(rb, grounded, walkingSpeed, slidingSpeed, jump, isJumping, xMovement, zMovement, slideable);
+        (isJumping) = slideable.slide(rb, grounded, walkingSpeed, slidingSpeed, jump, isJumping, xMovement, zMovement);
     }
 
     /// <summary>

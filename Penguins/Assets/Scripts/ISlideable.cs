@@ -19,13 +19,13 @@ public interface ISlideable
     /// <param name="xMovement"></param>
     /// <param name="zMovement"></param>
     /// <returns>Bool of IsJumping (set back to false).</returns>
-    Tuple<ISlideable, bool> slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement, ISlideable slideable);
+    bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement);
 }
 
 class IsSliding : ISlideable
 {
     public bool IsPlayerSliding { get => true; }
-    public Tuple<ISlideable, bool> slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement, ISlideable slideable)
+    public bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement)
     {
         if (xMovement != 0 && grounded)
         {
@@ -47,30 +47,45 @@ class IsSliding : ISlideable
             PlayerController.ThisPlayerController.NotifyPlayerObservers();
         }
 
-        return Tuple.Create(slideable, isJumping);
+        return isJumping;
     }
 }
 
 class NotSliding : ISlideable
 {
     public bool IsPlayerSliding { get => false; }
-    public Tuple<ISlideable, bool> slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement, ISlideable slideable)
+    public bool slide(Rigidbody rb, bool grounded, float speed, float slidingSpeed, float jump, bool isJumping, float xMovement, float zMovement)
     {
+        Vector3 velocity = Vector3.zero;
         //Enter non sliding movement
-        if(grounded)
+        if (grounded)
         {
-            Vector3 velocity = (rb.transform.right * xMovement + rb.transform.forward * zMovement).normalized * speed;
-            velocity.y = rb.velocity.y;
-            rb.velocity = velocity;
-        }
+            if (xMovement != 0)
+            {
+                velocity += rb.transform.right * xMovement;
+                //velocity = (rb.transform.right * xMovement + rb.transform.forward * zMovement).normalized * speed;
+            }
 
-        if(isJumping)
+            if (zMovement != 0)
+            {
+                velocity += rb.transform.forward * zMovement;
+            }
+            velocity = velocity.normalized * speed;
+            velocity.y = rb.velocity.y;
+        }
+        else
+        {
+            velocity = rb.velocity;
+        }
+        rb.velocity = velocity;
+
+        if (isJumping)
         {
             rb.AddForce(Vector3.up * jump);
             isJumping = false;
             PlayerController.ThisPlayerController.SetSlideMode(new IsSliding());
         }
 
-        return Tuple.Create(slideable, isJumping);
+        return isJumping;
     }
 }
