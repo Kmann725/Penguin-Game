@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PenguinSlidingUI : MonoBehaviour, IPlayerObserver
 {
-    TextMeshProUGUI text;
+    Image image;
+    public Sprite walkingSprite;
+    public Sprite slidingSprite;
     private void Awake()
     {
-        text = GetComponent<TextMeshProUGUI>();
+        image = GetComponent<Image>();
     }
 
     private void Start()
@@ -19,8 +22,8 @@ public class PenguinSlidingUI : MonoBehaviour, IPlayerObserver
     public void UpdateData(PlayerData pd)
     {
         if (pd.IsPlayerSliding)
-            text.text = "Sliding (Placeholder)";
+            image.sprite = slidingSprite;
         else
-            text.text = "Walking (Placeholder)";
+            image.sprite = walkingSprite;
     }
 }

@@ -62,17 +62,13 @@ class NotSliding : ISlideable
         if (grounded)
         {
             if (xMovement != 0)
-            {
                 velocity += rb.transform.right * xMovement;
-                //velocity = (rb.transform.right * xMovement + rb.transform.forward * zMovement).normalized * speed;
-            }
 
             if (zMovement != 0)
-            {
                 velocity += rb.transform.forward * zMovement;
-            }
             velocity = velocity.normalized * speed;
-            velocity.y = rb.velocity.y;
+            if (velocity.magnitude > 0)
+                velocity.y = rb.velocity.y;
         }
         else
         {
