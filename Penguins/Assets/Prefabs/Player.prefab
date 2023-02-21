@@ -134,9 +134,10 @@ MonoBehaviour:
   walkingSpeed: 10
   slidingSpeed: 15
   maxSlidingSpeed: 25
-  jump: 300
+  jump: 5
   mouseSensitivity: 5
   FishCollected: 0
+  call: {fileID: 0}
   groundCheck: {fileID: 4092868980120513630}
   groundDistance: 0.2
   groundMask:

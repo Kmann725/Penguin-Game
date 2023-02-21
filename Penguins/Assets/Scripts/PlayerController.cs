@@ -72,13 +72,16 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if(grounded)
+                isJumping = true;
+        }
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
             if (slideable.IsPlayerSliding)
                 SetSlideMode(new NotSliding());
             else
                 SetSlideMode(new IsSliding());
             NotifyPlayerObservers();
-            if(grounded)
-                isJumping = true;
         }
         if(Input.GetKeyDown(KeyCode.R))
         {

@@ -44,7 +44,7 @@ class IsSliding : ISlideable
 
         if (isJumping)
         {
-            rb.AddForce(Vector3.up * jump);
+            rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
             isJumping = false;
         }
 
@@ -78,7 +78,7 @@ class NotSliding : ISlideable
 
         if (isJumping)
         {
-            rb.AddForce(Vector3.up * jump);
+            rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
             isJumping = false;
         }
 
