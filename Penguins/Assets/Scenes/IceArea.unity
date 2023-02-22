@@ -1298,7 +1298,7 @@ GameObject:
   - component: {fileID: 793189840}
   m_Layer: 0
   m_Name: ice
-  m_TagString: ground
+  m_TagString: GroundIce
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2035,7 +2035,7 @@ GameObject:
   - component: {fileID: 1706633496}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: ground
+  m_TagString: GroundSnow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
