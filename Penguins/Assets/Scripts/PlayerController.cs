@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     public AudioClip call;
     public AudioClip sliding;
+    public AudioClip walking;
 
     private bool moveSoundPlaying = false;
 
@@ -81,9 +82,17 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (slideable.IsPlayerSliding)
+            {
                 SetSlideMode(new NotSliding());
+                sources[1].clip = walking;
+                moveSoundPlaying = false;
+            }
             else
+            {
                 SetSlideMode(new IsSliding());
+                sources[1].clip = sliding;
+                moveSoundPlaying = false;
+            }
                 
             NotifyPlayerObservers();
         }
@@ -97,12 +106,12 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
             sources[0].PlayOneShot(call);
         }
 
-        if ((xMovement != 0 || zMovement != 0) && slideable.IsPlayerSliding && !moveSoundPlaying)
+        if ((xMovement != 0 || zMovement != 0) && !moveSoundPlaying && grounded)
         {
             sources[1].Play();
             moveSoundPlaying = true;
         }
-        else if (rb.velocity.x == 0 && rb.velocity.z == 0 && moveSoundPlaying)
+        else if ((rb.velocity.x == 0 && rb.velocity.z == 0 && moveSoundPlaying) || !grounded)
         {
             sources[1].Stop();
             moveSoundPlaying = false;
