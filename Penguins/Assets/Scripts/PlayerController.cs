@@ -23,8 +23,11 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public static PlayerController ThisPlayerController;
 
     public AudioClip call;
+    public AudioClip sliding;
 
-    private AudioSource src;
+    private bool moveSoundPlaying = false;
+
+    private AudioSource[] sources;
 
     List<IPlayerObserver> observers = new List<IPlayerObserver>();
 
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     {
         ThisPlayerController = this;
 
-        src = GetComponent<AudioSource>();
+        sources = GetComponents<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -81,6 +84,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
                 SetSlideMode(new NotSliding());
             else
                 SetSlideMode(new IsSliding());
+                
             NotifyPlayerObservers();
         }
         if(Input.GetKeyDown(KeyCode.R))
@@ -90,7 +94,18 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            src.PlayOneShot(call);
+            sources[0].PlayOneShot(call);
+        }
+
+        if ((xMovement != 0 || zMovement != 0) && slideable.IsPlayerSliding && !moveSoundPlaying)
+        {
+            sources[1].Play();
+            moveSoundPlaying = true;
+        }
+        else if (rb.velocity.x == 0 && rb.velocity.z == 0 && moveSoundPlaying)
+        {
+            sources[1].Stop();
+            moveSoundPlaying = false;
         }
 
         /*
