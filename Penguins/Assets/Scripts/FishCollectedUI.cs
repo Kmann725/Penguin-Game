@@ -1,3 +1,10 @@
+/*
+ * Gerard Lamoureux
+ * FishCollectedUI
+ * Team Project 1
+ * Handles the Fish Collected UI
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

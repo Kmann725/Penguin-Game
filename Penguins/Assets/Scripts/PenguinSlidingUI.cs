@@ -1,3 +1,10 @@
+/*
+ * Gerard Lamoureux
+ * PenguinSlidingUI
+ * Team Project 1
+ * Handles UI for Penguin Sprite
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

@@ -1,3 +1,10 @@
+/*
+ * Gerard Lamoureux
+ * ISlideable
+ * Team Project 1
+ * Player Slide Interface. Handles Player Movement
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

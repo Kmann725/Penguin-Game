@@ -1,3 +1,10 @@
+/*
+ * Gerard Lamoureux
+ * WallTeleportPlayer
+ * Team Project 1
+ * Handles Player Teleport on Collision
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

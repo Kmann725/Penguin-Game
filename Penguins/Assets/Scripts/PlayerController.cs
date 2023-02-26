@@ -1,3 +1,10 @@
+/*
+ * Gerard Lamoureux, Kyle Manning
+ * PlayerController
+ * Team Project 1
+ * Handles Overall Player
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +28,8 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     private Rigidbody rb;
 
     public int FishCollected = 0;
+
+    private bool isTeleporting = false;
 
     public static PlayerController ThisPlayerController;
 
@@ -189,16 +198,20 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         UpdatePlayerDataForObservers();
         foreach (IPlayerObserver observer in observers)
             observer.UpdateData(playerDataForObservers);
+        isTeleporting = false;
     }
 
     public void UpdatePlayerDataForObservers()
     {
         playerDataForObservers.FishCollected = FishCollected;
         playerDataForObservers.IsPlayerSliding = IsPlayerSliding();
+        playerDataForObservers.IsPlayerTeleporting = isTeleporting;
     }
 
     public void TeleportToSpawn()
     {
+        isTeleporting = true;
         transform.position = spawnPoint;
+        NotifyPlayerObservers();
     }
 }

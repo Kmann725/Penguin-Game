@@ -1,6 +1,6 @@
 /*
  * Gerard Lamoureux
- * Pickup
+ * IObserver
  * Team Project 1
  * Interface of Observers
  */
