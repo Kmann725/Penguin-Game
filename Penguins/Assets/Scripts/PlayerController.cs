@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     private float xMovement;
     private float zMovement;
 
+    private Vector3 spawnPoint;
+
     private Rigidbody rb;
 
     public int FishCollected = 0;
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         rb = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        spawnPoint = transform.position;
     }
 
     public void SetSlideMode(ISlideable slideable)
@@ -191,5 +195,10 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     {
         playerDataForObservers.FishCollected = FishCollected;
         playerDataForObservers.IsPlayerSliding = IsPlayerSliding();
+    }
+
+    public void TeleportToSpawn()
+    {
+        transform.position = spawnPoint;
     }
 }
