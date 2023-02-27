@@ -232,10 +232,13 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     public IEnumerator PlayerTempSpeedBuffDebuff(int amount)
     {
-        if (maxSlidingSpeed < 10)
-            yield break;
         maxSlidingSpeed += amount;
         yield return new WaitForSeconds(10);
         maxSlidingSpeed -= amount;
+        if (amount < 0)
+            playerSpeedBuffed = true;
+        else
+            playerSpeedDebuffed = true;
+        NotifyPlayerObservers();
     }
 }

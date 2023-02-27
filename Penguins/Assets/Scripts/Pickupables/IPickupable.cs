@@ -34,6 +34,7 @@ public class SpeedPickup : IPickupable
     {
         pc.FishCollected++;
         pc.playerSpeedBuffed = true;
+        pc.maxSlidingSpeed += amount;
         //pc.UpdateSpeed(amount) function in PlayerController to update the player's speed multiplier
         //this.GameManager.GameManager.FishCount++;
         pc.NotifyPlayerObservers();
@@ -50,6 +51,7 @@ public class TempSpeedBuffPickup : IPickupable
     public void Pickup(PlayerController pc)
     {
         pc.playerSpeedBuffed = true;
+        pc.TempSpeedBuffDebuff(amount);
         pc.NotifyPlayerObservers();
     }
 }
@@ -60,13 +62,14 @@ public class TempSpeedBuffPickup : IPickupable
 public class TempSpeedDebuffPickup : IPickupable
 {
     private int amount;
-    public TempSpeedDebuffPickup(int amount = 10)
+    public TempSpeedDebuffPickup(int amount = 5)
     {
         this.amount = amount;
     }
     public void Pickup(PlayerController pc)
     {
         pc.playerSpeedDebuffed = true;
+        pc.TempSpeedBuffDebuff(-amount);
         pc.NotifyPlayerObservers();
     }
 }
