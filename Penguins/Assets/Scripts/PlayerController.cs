@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
             sources[1].Play();
             moveSoundPlaying = true;
         }
-        else if ((rb.velocity.x <= 0.05f && rb.velocity.z <= 0.05f && moveSoundPlaying) || !grounded)
+        else if (((rb.velocity.x <= 0.05f && rb.velocity.x >= -0.05f) && (rb.velocity.z <= 0.05f && rb.velocity.z >= -0.05f) && moveSoundPlaying) || !grounded)
         {
             sources[1].Stop();
             moveSoundPlaying = false;
