@@ -14,6 +14,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         offset = Vector3.Distance(player.transform.position, transform.position);
     }
 

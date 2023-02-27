@@ -120,12 +120,12 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
             sources[0].PlayOneShot(call);
         }
 
-        if ((xMovement != 0 || zMovement != 0) && !moveSoundPlaying && grounded)
+        if ((xMovement != 0 || zMovement != 0) && !moveSoundPlaying && grounded && Time.timeScale != 0)
         {
             sources[1].Play();
             moveSoundPlaying = true;
         }
-        else if (((rb.velocity.x <= 0.05f && rb.velocity.x >= -0.05f) && (rb.velocity.z <= 0.05f && rb.velocity.z >= -0.05f) && moveSoundPlaying) || !grounded)
+        else if (((rb.velocity.x <= 0.05f && rb.velocity.x >= -0.05f) && (rb.velocity.z <= 0.05f && rb.velocity.z >= -0.05f) && moveSoundPlaying) || !grounded || Time.timeScale == 0)
         {
             sources[1].Stop();
             moveSoundPlaying = false;
