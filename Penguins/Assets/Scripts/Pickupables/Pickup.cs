@@ -15,7 +15,7 @@ public class Pickup : MonoBehaviour
 
     public void SetPickup(IPickupable pickupable) { this.pickupable = pickupable; }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         PlayerController pc = other.gameObject.GetComponent<PlayerController>();
         if(pc)
