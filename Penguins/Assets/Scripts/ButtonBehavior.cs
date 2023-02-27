@@ -14,4 +14,9 @@ public class ButtonBehavior : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void HowToPlay()
+    {
+        SceneManager.LoadScene("HowToPlay");
+    }
 }

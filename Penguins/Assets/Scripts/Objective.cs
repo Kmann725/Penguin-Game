@@ -37,6 +37,7 @@ public class Objective : MonoBehaviour
             {
                 winScreen.SetActive(true);
                 Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.Confined;
             }
             else
             {
@@ -116,5 +117,6 @@ public class Objective : MonoBehaviour
 
         loseScreen.SetActive(true);
         Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 }

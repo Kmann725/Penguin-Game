@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         }
         if(Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("IceArea");
         }
 
         if (Input.GetKeyDown(KeyCode.E))
