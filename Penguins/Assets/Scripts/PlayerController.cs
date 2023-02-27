@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     private ISlideable slideable = new NotSliding();
 
+    #region Buffs/Debuffs
+    public bool playerSpeedBuffed = false;
+    public bool playerSpeedDebuffed = false;
+    #endregion
+
     #region Grounded
     public Transform groundCheck;
     public float groundDistance = 0.2f;
@@ -200,6 +205,8 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         foreach (IPlayerObserver observer in observers)
             observer.UpdateData(playerDataForObservers);
         isTeleporting = false;
+        playerSpeedBuffed = false;
+        playerSpeedDebuffed = false;
     }
 
     public void UpdatePlayerDataForObservers()
@@ -207,6 +214,8 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         playerDataForObservers.FishCollected = FishCollected;
         playerDataForObservers.IsPlayerSliding = IsPlayerSliding();
         playerDataForObservers.IsPlayerTeleporting = isTeleporting;
+        playerDataForObservers.PlayerSpeedBuffed = playerSpeedBuffed;
+        playerDataForObservers.PlayerSpeedDebuffed = playerSpeedDebuffed;
     }
 
     public void TeleportToSpawn()
@@ -214,5 +223,19 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         isTeleporting = true;
         transform.position = spawnPoint;
         NotifyPlayerObservers();
+    }
+
+    public void TempSpeedBuffDebuff(int amount)
+    {
+        StartCoroutine(PlayerTempSpeedBuffDebuff(amount));
+    }
+
+    public IEnumerator PlayerTempSpeedBuffDebuff(int amount)
+    {
+        if (maxSlidingSpeed < 10)
+            yield break;
+        maxSlidingSpeed += amount;
+        yield return new WaitForSeconds(10);
+        maxSlidingSpeed -= amount;
     }
 }
