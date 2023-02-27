@@ -3345,7 +3345,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -3780,9 +3780,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 134334888418438387, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3224398118571165648, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3257810326230612262, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 440.46
+      value: 522
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257810326230612262, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -270.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257810326230612263, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
+      propertyPath: m_text
+      value: 'Fish Collected: '
       objectReference: {fileID: 0}
     - target: {fileID: 3257810326230612263, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
       propertyPath: m_fontSize
