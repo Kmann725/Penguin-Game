@@ -36,10 +36,11 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public AudioClip call;
     public AudioClip sliding;
     public AudioClip walking;
+    public AudioClip eating;
 
     private bool moveSoundPlaying = false;
 
-    private AudioSource[] sources;
+    public AudioSource[] sources;
 
     List<IPlayerObserver> observers = new List<IPlayerObserver>();
 
