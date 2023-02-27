@@ -20,16 +20,19 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        Vector3 newPos;
+        if (Time.timeScale != 0)
+        {
+            Vector3 newPos;
 
-        float y = Input.GetAxis("Mouse X") * rotateSpeed;
-        rotX += Input.GetAxis("Mouse Y") * rotateSpeed;
-        rotX = Mathf.Clamp(rotX, minXRot, maxXRot);
-        transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y, 0);
-        newPos = target.transform.position - (transform.forward * offset);
-        newPos.y += 0.15f;
-        transform.position = newPos;
+            float y = Input.GetAxis("Mouse X") * rotateSpeed;
+            rotX += Input.GetAxis("Mouse Y") * rotateSpeed;
+            rotX = Mathf.Clamp(rotX, minXRot, maxXRot);
+            transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y, 0);
+            newPos = target.transform.position - (transform.forward * offset);
+            newPos.y += 0.15f;
+            transform.position = newPos;
 
-        player.transform.Rotate(0, y, 0);
+            player.transform.Rotate(0, y, 0);
+        }
     }
 }

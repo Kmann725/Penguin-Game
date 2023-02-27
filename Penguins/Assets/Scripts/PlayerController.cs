@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
     public AudioClip eating;
 
     private bool moveSoundPlaying = false;
+    private bool paused = false;
+
+    public GameObject pauseMenu;
 
     public AudioSource[] sources;
 
@@ -123,6 +126,24 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         if (Input.GetKeyDown(KeyCode.E))
         {
             sources[0].PlayOneShot(call);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (!paused)
+            {
+                paused = true;
+                Cursor.lockState = CursorLockMode.Confined;
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                paused = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1;
+            }
         }
 
         if ((xMovement != 0 || zMovement != 0) && !moveSoundPlaying && grounded && Time.timeScale != 0)
