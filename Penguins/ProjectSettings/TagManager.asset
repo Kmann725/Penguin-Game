@@ -7,6 +7,7 @@ TagManager:
   - ground
   - GroundIce
   - GroundSnow
+  - objective
   layers:
   - Default
   - TransparentFX

@@ -2597,7 +2597,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 2.75}
-  m_SizeDelta: {x: 20, y: 5}
+  m_SizeDelta: {x: 20.5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646424330
 MonoBehaviour:
@@ -2682,7 +2682,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 6.5594864, y: 0.5892477, z: 6.353531, w: 1.1989384}
+  m_margin: {x: 6.3905945, y: 0.5892477, z: 6.204468, w: 1.1989384}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -3312,7 +3312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 6:00
+  m_text: 7:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3664,7 +3664,7 @@ GameObject:
   - component: {fileID: 955868650}
   m_Layer: 0
   m_Name: Objective
-  m_TagString: Untagged
+  m_TagString: objective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3686,7 +3686,7 @@ MonoBehaviour:
   pc: {fileID: 161688991}
   winScreen: {fileID: 662614214}
   loseScreen: {fileID: 876682506}
-  minutes: 2
+  minutes: 7
 --- !u!4 &955868649
 Transform:
   m_ObjectHideFlags: 0
@@ -3714,7 +3714,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 6.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &970549798
 PrefabInstance:
@@ -3780,6 +3780,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3257810326230612262, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 440.46
+      objectReference: {fileID: 0}
     - target: {fileID: 3257810326230612263, guid: 32b14d4c8c3d0554b8db6878067dda10, type: 3}
       propertyPath: m_fontSize
       value: 56

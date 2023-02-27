@@ -15,7 +15,8 @@ public class Objective : MonoBehaviour
     private GameObject player;
 
     private bool began = false;
-    private bool talking = false;
+    private bool nearNest = false;
+    private bool trigger = false;
 
     public int minutes = 6;
 
@@ -30,37 +31,51 @@ public class Objective : MonoBehaviour
     {
         transform.rotation = player.transform.rotation;
 
-        if (Input.GetKeyDown(KeyCode.E) && talking)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            textbox.text = "Our chick needs food. About 30 fish should do before we switch.";
-            talking = false;
+            if (pc.FishCollected >= 25 && nearNest)
+            {
+                winScreen.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                textbox.text = "Our chick needs food. About 25 fish should do before we switch. Return here once you've collected them.";
+                if (!began)
+                {
+                    trigger = true;
+                }
+            }
+        }
+
+        if (pc.FishCollected >= 30)
+        {
+            textbox.text = "Press E";
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!began)
-        {
-            talking = true;
-        }
-        else
-        {
-            textbox.gameObject.GetComponent<MeshRenderer>().enabled = true;
-        }
+        nearNest = true;
+
+        textbox.gameObject.GetComponent<MeshRenderer>().enabled = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!talking && !began)
+        if (!began && nearNest && trigger)
         {
             StartCoroutine(Timer());
             began = true;
+            trigger = false;
         }
 
         if (began)
         {
             textbox.gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
+
+        nearNest = false;
     }
 
     IEnumerator Timer()
