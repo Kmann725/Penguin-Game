@@ -15,9 +15,8 @@ public class Snowball : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (rb.velocity.x >= 0.05f && rb.velocity.z >= 0.05f && collision.gameObject.CompareTag("GroundSnow") && transform.localScale.x <= maxSize)
+        if ((rb.velocity.x >= 0.15f || rb.velocity.x <= -0.15f) && (rb.velocity.z >= 0.15f || rb.velocity.z <= -0.15f) && collision.gameObject.CompareTag("GroundSnow") && transform.localScale.x <= maxSize)
         {
-
             transform.localScale = transform.localScale * (1.005f);
         }
     }
