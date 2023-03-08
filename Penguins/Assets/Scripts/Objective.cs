@@ -18,6 +18,8 @@ public class Objective : MonoBehaviour
     private bool nearNest = false;
     private bool trigger = false;
 
+    public GameObject IglooDoor;
+
     public int minutes = 6;
 
     // Start is called before the first frame update
@@ -44,6 +46,7 @@ public class Objective : MonoBehaviour
                 textbox.text = "Our chick needs food. About 25 fish should do before we switch. Return here once you've collected them.";
                 if (!began)
                 {
+                    Destroy(IglooDoor);
                     trigger = true;
                 }
             }
