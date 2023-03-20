@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
     public AudioSource[] sources;
 
+    public Animator anim;
+    public GameObject model;
+
     List<IPlayerObserver> observers = new List<IPlayerObserver>();
 
     private PlayerData playerDataForObservers = new PlayerData();
@@ -108,12 +111,14 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
                 SetSlideMode(new NotSliding());
                 sources[1].clip = walking;
                 moveSoundPlaying = false;
+                RotatePlayerWalk();
             }
             else
             {
                 SetSlideMode(new IsSliding());
                 sources[1].clip = sliding;
                 moveSoundPlaying = false;
+                RotatePlayerSlide();
             }
                 
             NotifyPlayerObservers();
@@ -150,11 +155,29 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         {
             sources[1].Play();
             moveSoundPlaying = true;
+
+            if(!slideable.IsPlayerSliding)
+            {
+                anim.Play("Walk");
+            }
+            else if(slideable.IsPlayerSliding)
+            {
+                anim.Play("Slide");
+            }
         }
         else if (((rb.velocity.x <= 0.05f && rb.velocity.x >= -0.05f) && (rb.velocity.z <= 0.05f && rb.velocity.z >= -0.05f) && moveSoundPlaying) || !grounded || Time.timeScale == 0)
         {
             sources[1].Stop();
             moveSoundPlaying = false;
+
+            if(slideable.IsPlayerSliding)
+            {
+                anim.Play("Slide");
+            }
+            else
+            {
+                anim.Play("Idle");
+            }
         }
 
         /*
@@ -261,5 +284,23 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
         else
             playerSpeedDebuffed = true;
         NotifyPlayerObservers();
+    }
+
+    private void RotatePlayerSlide()
+    {
+        model.transform.eulerAngles = new Vector3(model.transform.eulerAngles.x + 65, transform.eulerAngles.y, transform.eulerAngles.z);
+
+        //model.transform.Rotate(65, model.transform.rotation.y, model.transform.rotation.z);
+
+        //rb.freezeRotation = false;
+    }
+
+    private void RotatePlayerWalk()
+    {
+        model.transform.eulerAngles = new Vector3(model.transform.eulerAngles.x - 65, transform.eulerAngles.y, transform.eulerAngles.z);
+
+        //model.transform.Rotate(0, model.transform.rotation.y, model.transform.rotation.z);
+
+        //rb.freezeRotation = true;
     }
 }
