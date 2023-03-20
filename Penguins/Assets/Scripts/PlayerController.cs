@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour, IPlayerSubject
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            sources[0].volume = 0.45f;
             sources[0].PlayOneShot(call);
         }
 

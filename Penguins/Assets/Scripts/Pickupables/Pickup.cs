@@ -21,6 +21,7 @@ public class Pickup : MonoBehaviour
         if(pc)
         {
             pickupable.Pickup(pc);
+            pc.sources[0].volume = 0.7f;
             pc.sources[0].PlayOneShot(pc.eating);
             Destroy(gameObject);
         }
