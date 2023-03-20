@@ -575,7 +575,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &125072927 stripped
 GameObject:
@@ -4696,7 +4696,7 @@ MonoBehaviour:
   winScreen: {fileID: 662614214}
   loseScreen: {fileID: 876682506}
   IglooDoor: {fileID: 1898934523}
-  minutes: 6
+  minutes: 7
 --- !u!4 &955868649
 Transform:
   m_ObjectHideFlags: 0
@@ -8007,7 +8007,7 @@ Transform:
   - {fileID: 49740510294615350}
   - {fileID: 2051764142502577409}
   m_Father: {fileID: 0}
-  m_RootOrder: 39
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: -71.534, z: 0}
 --- !u!4 &543450653714276810
 Transform:
