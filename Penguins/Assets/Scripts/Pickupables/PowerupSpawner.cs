@@ -7,10 +7,12 @@ public class PowerupSpawner : MonoBehaviour
     SimplePowerupFactory powerupFactory = new SimplePowerupFactory();
     private BoxCollider spawnArea;
     public LayerMask groundLayer;
+    public static PowerupSpawner thisPowerupSpawner;
 
     private void Awake()
     {
         spawnArea = GetComponent<BoxCollider>();
+        thisPowerupSpawner = this;
     }
 
     private void Start()
@@ -20,11 +22,11 @@ public class PowerupSpawner : MonoBehaviour
 
     private void SpawnPowerups()
     {
-        for(int i=0; i<25;i++)
+        for(int i=0; i<20;i++)
         {
             SpawnPowerup("BaseFish");
         }
-        for(int i=0; i<15; i++)
+        for(int i=0; i<10; i++)
         {
             SpawnPowerup("SpeedFish");
         }

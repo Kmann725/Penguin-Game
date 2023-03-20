@@ -52,7 +52,7 @@ public class Objective : MonoBehaviour
             }
         }
 
-        if (pc.FishCollected >= 30)
+        if (pc.FishCollected >= 25)
         {
             textbox.text = "Press E";
         }

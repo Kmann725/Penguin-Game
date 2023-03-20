@@ -20,6 +20,7 @@ public class BasePickup : IPickupable
     {
         pc.FishCollected++;
         pc.NotifyPlayerObservers();
+        PowerupSpawner.thisPowerupSpawner.SpawnPowerup("BaseFish");
     }
 }
 
@@ -38,6 +39,7 @@ public class SpeedPickup : IPickupable
         //pc.UpdateSpeed(amount) function in PlayerController to update the player's speed multiplier
         //this.GameManager.GameManager.FishCount++;
         pc.NotifyPlayerObservers();
+        PowerupSpawner.thisPowerupSpawner.SpawnPowerup("SpeedFish");
     }
 }
 
