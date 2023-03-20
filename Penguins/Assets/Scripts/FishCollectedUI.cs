@@ -26,6 +26,6 @@ public class FishCollectedUI : MonoBehaviour, IPlayerObserver
 
     public void UpdateData(PlayerData pd)
     {
-        text.text = "Fish Collected: " + pd.FishCollected;
+        text.text = "Fish Collected: " + pd.FishCollected + "/25";
     }
 }
